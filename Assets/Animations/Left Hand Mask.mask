@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Left Hand Mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 0
+  - m_Path: Armature/Hip
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_L/Thigh_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_L/Thigh_L/Shin_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_L/Thigh_L/Shin_L/Foot_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_R/Thigh_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_R/Thigh_R/Shin_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Hip_R/Thigh_R/Shin_R/Foot_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Neck
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Neck/Head
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Neck/Head/Eyeball_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Neck/Head/Eyeball_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform/Shawl_Deform_002
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_004
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_004/Shawl_Deform_006
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_005
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_005/Shawl_Deform_007
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_008
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_008/Shawl_Deform_010
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_009
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_009/Shawl_Deform_011
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_012
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shawl_Deform_013
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_01_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_01_L/Finger_02_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_11_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_11_L/Finger_12_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_21_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_21_L/Finger_22_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_31_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_31_L/Finger_32_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_41_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_L/Upper_Arm_L/Lower_Arm_L/Palm_L/Finger_41_L/Finger_42_L
+    m_Weight: 1
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_01_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_01_R/Finger_02_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_11_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_11_R/Finger_12_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_21_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_21_R/Finger_22_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_31_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_31_R/Finger_32_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_41_R
+    m_Weight: 0
+  - m_Path: Armature/Hip/Lower_Torso/Upper_Torso/Shoulder_R/Upper_Arm_R/Lower_Arm_R/Palm_R/Finger_41_R/Finger_42_R
+    m_Weight: 0
+  - m_Path: Armature/Mouth_Driver
+    m_Weight: 0
+  - m_Path: Body
+    m_Weight: 0
+  - m_Path: Hair
+    m_Weight: 0
+  - m_Path: Hat
+    m_Weight: 0
+  - m_Path: Left_Eye
+    m_Weight: 0
+  - m_Path: Left_Eyebrow
+    m_Weight: 0
+  - m_Path: Left_Shoe
+    m_Weight: 0
+  - m_Path: Lower_Teeth
+    m_Weight: 0
+  - m_Path: Model
+    m_Weight: 0
+  - m_Path: Model/Accessories
+    m_Weight: 0
+  - m_Path: Model/Accessories/Broom
+    m_Weight: 0
+  - m_Path: Model/Clothing
+    m_Weight: 0
+  - m_Path: Right_Eye
+    m_Weight: 0
+  - m_Path: Right_Eyebrow
+    m_Weight: 0
+  - m_Path: Right_Shoe
+    m_Weight: 0
+  - m_Path: Robe
+    m_Weight: 0
+  - m_Path: Shawl
+    m_Weight: 0
+  - m_Path: Shorts
+    m_Weight: 0
+  - m_Path: Upper_Teeth
+    m_Weight: 0
