@@ -2,6 +2,9 @@
 Hi all, currently I'm in a slump because I'm stopping all work on this game to study for my exam, so it'll take a while for me to regain
 momentum again. I'll add more stuff to the README when I figure out something meaningful to say. 
 
+When you're ready to contribute, check out the Project menu for the long term roadmap on what to do. I'll open up issues with reference 
+to the Project tab sometime.
+
 In the meantime, here's how to open the game. 
 1. Download Unity: https://unity3d.com/get-unity/download.  
    Install Unity Hub, then use that to install the latest version of Unity
