@@ -31,7 +31,8 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     private Vector3 rotationData = Vector3.zero;
     public bool IsGrounded { get; private set; }
     private bool jumpKeyHeld;
-    private bool setupDone;
+    private bool canSetup = false;
+    private bool setupDone = false;
     private bool canFly = true;
     private float flyingDebugCooldown = 0f;
     #endregion
@@ -95,7 +96,6 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     // To do: shift startup stuff to OnEnable()
     private void OnEnable()
     {
-        setupDone = false;
         StartCoroutine(Setup());
     }
 
@@ -104,6 +104,10 @@ public class MovementController : MonoBehaviourPun, IPunObservable
         int currentPhase = 0;
         while (true)
         {
+            if (!canSetup)
+            {
+                yield return new WaitForEndOfFrame();
+            }
             if (currentPhase == 0)
             {
                 rb = GetComponent<Rigidbody>();
@@ -612,6 +616,11 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     public Vector3 GetFiringPivotPosition()
     {
         return firingPivot.position;
+    }
+
+    public void EnableCharacter()
+    {
+        canSetup = true;
     }
     #endregion
 }

@@ -2079,8 +2079,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5251182560513579425}
   - component: {fileID: 5251182560513672831}
-  - component: {fileID: 5251182560513672576}
   - component: {fileID: 1242550909201018311}
+  - component: {fileID: 5251182560513672576}
   - component: {fileID: 1590287659767175396}
   - component: {fileID: 6490642977466226931}
   - component: {fileID: 5047293672587626226}
@@ -2122,6 +2122,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1242550909201018311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251182560513672577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22958733cf9f7314ea347b606f8fde9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5251182560513672576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2150,18 +2162,6 @@ MonoBehaviour:
   flyingColliders:
   - {fileID: 2055324634155181999}
   - {fileID: 4498267951445494335}
---- !u!114 &1242550909201018311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5251182560513672577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22958733cf9f7314ea347b606f8fde9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1590287659767175396
 MonoBehaviour:
   m_ObjectHideFlags: 0

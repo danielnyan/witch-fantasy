@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: aceb205d-1e8d-41e0-87e8-9d722fc5775a
+    AppIdRealtime: ce449a90-b0a9-4684-9f88-db63d282d27d
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
-    UseNameServer: 0
+    UseNameServer: 1
     FixedRegion: 
-    Server: 192.168.56.1
+    Server: 
     Port: 5055
     Protocol: 0
     EnableLobbyStatistics: 0
@@ -32,5 +32,9 @@ MonoBehaviour:
   - FireProjectile
   - FlyingToGrounded
   - GroundedToFlying
+  - SendJoinRequest
+  - UpdateField
+  - UpdateSettings
+  - SetupCharacterPun
   DisableAutoOpenWizard: 1
   ShowSettings: 1

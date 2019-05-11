@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 
 public class ProjectileScript : MonoBehaviour
 {
@@ -34,16 +35,19 @@ public class ProjectileScript : MonoBehaviour
         {
             if (collision.transform.root.gameObject != firedFrom)
             {
-                GameObject hitEffectInstance = Instantiate(hitEffect,
-                    collision.GetContact(0).point,
-                    Quaternion.LookRotation(collision.GetContact(0).normal));
-                hitEffectInstance.SetActive(true);
-                Destroy(collision.transform.root.gameObject);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PlayerManager.instance.SendKillRequest(collision.transform.root.gameObject.GetPhotonView().ViewID);
+                    GameObject hitEffectInstance = PhotonNetwork.Instantiate(hitEffect.name,
+                        collision.GetContact(0).point,
+                        Quaternion.LookRotation(collision.GetContact(0).normal));
+                    hitEffectInstance.SetActive(true);
+                }
             }
         }
         else if (collision.gameObject.tag == "Destructible")
         {
-            GameObject hitEffectInstance = Instantiate(hitEffect,
+            GameObject hitEffectInstance = PhotonNetwork.Instantiate(hitEffect.name,
                     collision.GetContact(0).point,
                     Quaternion.LookRotation(collision.GetContact(0).normal));
             hitEffectInstance.SetActive(true);

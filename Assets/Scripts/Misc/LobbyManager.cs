@@ -39,7 +39,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    #region MonoBehaviourPunCallbacks Callbacks
+    #region MonoBehaviourPun Callbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected");
