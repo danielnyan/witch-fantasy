@@ -93,7 +93,6 @@ public class MovementController : MonoBehaviourPun, IPunObservable
             "Broom/Broom Particles").gameObject;
     }
 
-    // To do: shift startup stuff to OnEnable()
     private void OnEnable()
     {
         StartCoroutine(Setup());
@@ -203,7 +202,7 @@ public class MovementController : MonoBehaviourPun, IPunObservable
             FlyingUpdate();
         }
 
-        // To fix
+        // Add offline functionality
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
             if (Input.GetMouseButton(1))
@@ -307,6 +306,7 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     private void OnDisable()
     {
         canFly = true;
+        IsGrounded = false;
     }
     #endregion
 
@@ -573,6 +573,10 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void GroundedToFlying()
     {
+        if (!setupDone)
+        {
+            return;
+        }
         if (IsGrounded)
         {
             rb.drag = 0.7f;
@@ -593,6 +597,10 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void FlyingToGrounded()
     {
+        if (!setupDone)
+        {
+            return;
+        }
         if (!IsGrounded)
         {
             rb.drag = 0.1f;

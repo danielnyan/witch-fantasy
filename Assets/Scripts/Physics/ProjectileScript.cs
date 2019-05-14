@@ -37,20 +37,17 @@ public class ProjectileScript : MonoBehaviour
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    PlayerManager.instance.SendKillRequest(collision.transform.root.gameObject.GetPhotonView().ViewID);
-                    GameObject hitEffectInstance = PhotonNetwork.Instantiate(hitEffect.name,
-                        collision.GetContact(0).point,
-                        Quaternion.LookRotation(collision.GetContact(0).normal));
-                    hitEffectInstance.SetActive(true);
+                    int viewID = collision.transform.root.gameObject.GetPhotonView().ViewID;
+                    GameEvents.KillPlayer(viewID);
+                    SpawnEffect(collision.GetContact(0).point, 
+                        collision.GetContact(0).normal, hitEffect);
                 }
             }
         }
         else if (collision.gameObject.tag == "Destructible")
         {
-            GameObject hitEffectInstance = PhotonNetwork.Instantiate(hitEffect.name,
-                    collision.GetContact(0).point,
-                    Quaternion.LookRotation(collision.GetContact(0).normal));
-            hitEffectInstance.SetActive(true);
+            SpawnEffect(collision.GetContact(0).point,
+                collision.GetContact(0).normal, hitEffect);
             Destroy(collision.gameObject);
         }
     }
@@ -60,10 +57,12 @@ public class ProjectileScript : MonoBehaviour
         if (transform.position.y < -200f)
         {
             KillBullet();
-        } else if (stallTime > 0.5f)
+        }
+        else if (stallTime > 0.5f)
         {
             KillBullet();
-        } else if (currentLifetime < 0f)
+        }
+        else if (currentLifetime < 0f)
         {
             KillBullet();
         }
@@ -71,7 +70,8 @@ public class ProjectileScript : MonoBehaviour
         if (rb.velocity.magnitude < 5f)
         {
             stallTime += Time.deltaTime;
-        } else
+        }
+        else
         {
             stallTime = 0;
         }
@@ -86,6 +86,13 @@ public class ProjectileScript : MonoBehaviour
             Quaternion.LookRotation(Vector3.up));
         dieEffectInstance.SetActive(true);
         Destroy(transform.root.gameObject);
+    }
+
+    private void SpawnEffect(Vector3 position, Vector3 direction, GameObject hitEffect)
+    {
+        GameObject hitEffectInstance = PhotonNetwork.Instantiate(hitEffect.name,
+                position, Quaternion.LookRotation(direction));
+        hitEffectInstance.SetActive(true);
     }
     #endregion
 }

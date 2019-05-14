@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 
 public class ParticleDestroyer : MonoBehaviour
 {
