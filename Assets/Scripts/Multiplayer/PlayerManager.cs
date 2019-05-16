@@ -110,9 +110,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             int photonID = (int)data[0];
             Vector3 position = (Vector3)data[1];
             PhotonView p = PhotonView.Find(photonID);
-            p.gameObject.transform.position = position;
-            p.gameObject.transform.rotation = Quaternion.identity;
-            p.gameObject.SetActive(true);
+            if (p != null)
+            {
+                p.gameObject.transform.position = position;
+                p.gameObject.transform.rotation = Quaternion.identity;
+                p.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -161,9 +164,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private void RemovePlayer(Player player)
     {
         PhotonNetwork.Destroy(player.TagObject as GameObject);
-        isDead.Remove(playerToPhoton[player.ActorNumber]);
+        int photonID = playerToPhoton[player.ActorNumber];
+        isDead.Remove(photonID);
+        revivalTime.Remove(photonID);
+        deadPlayers.Remove(photonID);
+        respawnQueue.Remove(photonID);
         playerToPhoton.Remove(player.ActorNumber);
     }
+
     private void HandleRevivalCooldown()
     {
         foreach (int key in deadPlayers)
