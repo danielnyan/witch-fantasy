@@ -18,15 +18,17 @@ public class GameEvents : MonoBehaviour
     public static readonly byte eventPlayerJoined = 0;
     public static readonly byte eventKillPlayer = 1;
     public static readonly byte eventRespawnPlayer = 2;
+    public static readonly byte eventFireProjectile = 3;
     #endregion
 
     #region Event Wrappers
-    public static void PlayerJoined(int playerID, Dictionary<int, bool> isDead)
+    public static void PlayerJoined(int playerID, Dictionary<int, bool> isDead,
+        Dictionary<int, int> playerTeams)
     {
         // Sent: from Master Client to Newly Joined
-        // Content: (Dictionary<int, bool>) isDead
+        // Content: (Dictionary<int, bool>) isDead, (Dictionary<int, int>) playerTeams
         int[] clients = new int[] { playerID };
-        Dictionary<int, bool> content = isDead;
+        object[] content = new object[] { isDead, playerTeams };
         PhotonNetwork.RaiseEvent(eventPlayerJoined, content,
             TargetClients(clients), sendOptions);
     }
@@ -55,6 +57,19 @@ public class GameEvents : MonoBehaviour
             PhotonNetwork.RaiseEvent(eventRespawnPlayer, content,
                 TargetClients(clients), sendOptions);
         }
+    }
+
+    public static void FireProjectile(int playerID, int photonID, Vector3 firePosition, 
+        Vector3 fireDirection, Vector3 currVelocity)
+    {
+        // Sent: from person firing to Master Client
+        // Content: (int) playerID, (int) photonID, (Vector3) position, (Vector3) fireDirection, 
+        // (Vector3) currVelocity
+        int[] clients = new int[] { PhotonNetwork.MasterClient.ActorNumber };
+        object[] content = new object[] {playerID, photonID, firePosition,
+            fireDirection, currVelocity };
+        PhotonNetwork.RaiseEvent(eventFireProjectile, content,
+                TargetClients(clients), sendOptions);
     }
     #endregion
 

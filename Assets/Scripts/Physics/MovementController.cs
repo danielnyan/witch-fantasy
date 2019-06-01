@@ -221,8 +221,7 @@ public class MovementController : MonoBehaviourPun, IPunObservable
                     Vector3 firePosition = firingPivot.position;
                     Vector3 fireRotation = firingRotation.forward;
                     Vector3 currVelocity = rb.velocity;
-                    photonView.RPC("FireProjectile", RpcTarget.All, 
-                        firePosition, fireRotation, currVelocity);
+                    FireProjectile(firePosition, fireRotation, currVelocity);
                     CurrentProjectileCooldown = baseProjectileCooldown;
                 }
             }
@@ -511,19 +510,10 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     // Or even better, use twistPivot.forward directly by multiplying twistPivot.rotation 
     // with Quaternion.Euler(-rotationData.y, rotationData.x, 0)
     // Remember to also update the boy prefab once you're done
-    [PunRPC]
     private void FireProjectile(Vector3 firePosition, Vector3 fireDirection, Vector3 currVelocity)
     {
-        GameObject newProjectile =
-            Instantiate(projectile, firePosition, Quaternion.identity);
-        newProjectile.SetActive(false);
-
-        newProjectile.GetComponentInChildren<ProjectileScript>().
-            SetupProjectile(this);
-        newProjectile.GetComponentInChildren<Rigidbody>().velocity =
-            fireDirection * projectileSpeed + currVelocity;
-        newProjectile.SetActive(true);
-
+        GameEvents.FireProjectile(PhotonNetwork.LocalPlayer.ActorNumber, 
+            photonView.ViewID, firePosition, fireDirection, currVelocity);
         animationController.Yeet();
         yeetingAnimationCooldown = 0.5f;
     }
