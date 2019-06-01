@@ -20,11 +20,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     * PhotonViewID of anything it hits. PlayerToPhoton converts the player ID to 
     * the PhotonViewID so that we can remove player GameObjects when a player leaves.
     */
+    private Dictionary<int, int> playerToPhoton = new Dictionary<int, int>();
+
+    // Handles player death and respawns
     private Dictionary<int, bool> isDead = new Dictionary<int, bool>();
     private HashSet<int> deadPlayers = new HashSet<int>();
     private Dictionary<int, float> revivalTime = new Dictionary<int, float>();
     private List<int> respawnQueue = new List<int>();
-    private Dictionary<int, int> playerToPhoton = new Dictionary<int, int>();
+
+    // Handles team management
+    private Vector3 spawn0 = Vector3.zero;
+    private Vector3 spawn1 = Vector3.zero;
+    private Dictionary<int, int> playerTeams = new Dictionary<int, int>();
+    // Equals to the number of people in team 0 (green) minus people in team 1 (purple)
+    private int teamBalance = 0;
     #endregion
 
     #region Private Serializable Fields
@@ -53,18 +62,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        PhotonNetwork.AddCallbackTarget(this);
-    }
-
-    public override void OnDisable()
-    {
-        base.OnEnable();
-        PhotonNetwork.RemoveCallbackTarget(this);
-    }
-
     private void Update()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -82,11 +79,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         byte eventCode = photonEvent.Code;
         if (eventCode == GameEvents.eventPlayerJoined)
         {
-            Dictionary<int, bool> isDead = (Dictionary<int, bool>)photonEvent.CustomData;
+            object[] data = (object[])photonEvent.CustomData;
+            Dictionary<int, bool> isDead = (Dictionary<int, bool>)data[0];
+            Dictionary<int, int> playerTeams = (Dictionary<int, int>)data[1];
             foreach (KeyValuePair<int, bool> pair in isDead)
             {
                 PhotonView p = PhotonView.Find(pair.Key);
                 p.gameObject.SetActive(pair.Value);
+                int playerLayer =
+                    playerTeams[pair.Key] == 1 ? LayerMask.NameToLayer("PurpleTeam") :
+                    LayerMask.NameToLayer("GreenTeam");
+                SetLayerRecursively(p.gameObject, playerLayer);
             }
         }
         else if (eventCode == GameEvents.eventKillPlayer)
@@ -117,6 +120,53 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 p.gameObject.SetActive(true);
             }
         }
+        else if (eventCode == GameEvents.eventFireProjectile)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                object[] data = (object[])photonEvent.CustomData;
+                int playerID = (int)data[0];
+                int photonID = (int)data[1];
+                Vector3 firePosition = (Vector3)data[2];
+                Vector3 fireDirection = (Vector3)data[3];
+                Vector3 currVelocity = (Vector3)data[4];
+
+                // Verifies if player is still active
+                if (!playerToPhoton.ContainsKey(playerID) || !isDead.ContainsKey(photonID))
+                {
+                    return;
+                }
+
+                // Verifies the integrity of the playerID and photonID
+                if (playerToPhoton[playerID] != photonID)
+                {
+                    return;
+                }
+
+                // To fetch from Player Custom Properties or internal database
+                float projectileSpeed = 100f;
+                int team = playerTeams[photonID];
+                int layer = 0;
+                string projectileName = "Projectile 1";
+                if (team == 1)
+                {
+                    layer = LayerMask.NameToLayer("PurpleTeam");
+                    projectileName = "Projectile 2";
+                }
+                else
+                {
+                    layer = LayerMask.NameToLayer("GreenTeam");
+                    projectileName = "Projectile 1";
+                }
+
+                GameObject newProjectile =
+                    PhotonNetwork.Instantiate(projectileName, firePosition, Quaternion.identity);
+                newProjectile.GetComponentInChildren<ProjectileScript>().
+                    SetupProjectile(photonID, layer, projectileSpeed,
+                    firePosition, fireDirection, currVelocity);
+                newProjectile.SetActive(true);
+            }
+        }
     }
 
     public override void OnPlayerEnteredRoom(Player player)
@@ -124,7 +174,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         base.OnPlayerEnteredRoom(player);
         if (PhotonNetwork.IsMasterClient)
         {
-            CreatePlayer(prefab.name, player, Vector3.zero);
+            CreatePlayer(prefab.name, player, spawn0);
         }
     }
 
@@ -136,6 +186,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             RemovePlayer(player);
         }
     }
+
+    // Kicks everyone when the host leaves
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.DestroyAll();
+        }
+        PhotonNetwork.Disconnect();
+    }
     #endregion
 
     #region Private Methods
@@ -144,17 +205,41 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         GameObject playerObj = null;
         if (player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
         {
+            // Create for host and transfer to player
             playerObj = PhotonNetwork.InstantiateSceneObject(prefabName, spawn, Quaternion.identity);
             playerObj.GetPhotonView().TransferOwnership(player.ActorNumber);
             playerObj.transform.GetChild(0).gameObject.GetPhotonView().TransferOwnership(player.ActorNumber);
         }
         else
         {
+            // Just create for host
             playerObj = PhotonNetwork.Instantiate(prefabName, spawn, Quaternion.identity);
         }
-        playerObj.GetPhotonView().Owner.TagObject = playerObj;
-        playerObj.GetComponent<MovementController>().EnableCharacter();
+
         int photonID = playerObj.GetPhotonView().ViewID;
+        playerObj.GetPhotonView().Owner.TagObject = playerObj;
+
+        // Possible improvements: Move to player custom properties.
+        if (teamBalance >= 0)
+        {
+            playerTeams.Add(photonID, 1);
+            teamBalance -= 1;
+        }
+        else
+        {
+            playerTeams.Add(photonID, 0);
+            teamBalance += 1;
+        }
+        int playerLayer = 0;
+        if (playerTeams[photonID] == 1)
+        {
+            playerLayer = LayerMask.NameToLayer("PurpleTeam");
+        } else
+        {
+            playerLayer = LayerMask.NameToLayer("GreenTeam");
+        }
+        SetLayerRecursively(playerObj, playerLayer);
+        playerObj.GetComponent<MovementController>().EnableCharacter();
         playerObj.SetActive(true);
 
         playerToPhoton.Add(player.ActorNumber, photonID);
@@ -169,6 +254,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         revivalTime.Remove(photonID);
         deadPlayers.Remove(photonID);
         respawnQueue.Remove(photonID);
+
+        int team = playerTeams[photonID];
+        if (team == 1)
+        {
+            teamBalance += 1;
+        }
+        else
+        {
+            teamBalance -= 1;
+        }
+        playerTeams.Remove(photonID);
         playerToPhoton.Remove(player.ActorNumber);
     }
 
@@ -192,6 +288,25 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             }
         }
         respawnQueue = new List<int>();
+    }
+
+    private void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+        if (obj == null)
+        {
+            return;
+        }
+
+        obj.layer = newLayer;
+
+        foreach (Transform child in obj.transform)
+        {
+            if (child == null)
+            {
+                continue;
+            }
+            SetLayerRecursively(child.gameObject, newLayer);
+        }
     }
     #endregion
 }

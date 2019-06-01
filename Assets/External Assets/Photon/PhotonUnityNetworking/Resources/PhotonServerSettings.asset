@@ -32,9 +32,7 @@ MonoBehaviour:
   - FireProjectile
   - FlyingToGrounded
   - GroundedToFlying
-  - SendJoinRequest
-  - UpdateField
-  - UpdateSettings
-  - SetupCharacterPun
+  - KillBullet
+  - SpawnEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 1
