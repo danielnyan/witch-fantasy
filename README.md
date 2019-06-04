@@ -23,10 +23,13 @@ Oh yeah, when you're midair, use W and S to pitch, Q and E to yaw, A and D to ro
 When you're on ground, use WASD to move around, Space to jump. Press Space in midair to switch to flying mode. 
 To fire, hold Right Click, then while holding, Left Click to fire. The bullet regenerates every 3 seconds. 
 
-Want to preview the game? See https://danielnyan.github.io/witch-fantasy/
+Want to preview the game? See https://danielnyan.github.io/witch-fantasy/index.html
+
 Some notes: 
 The source files for the WebGL build meant to showcase the basic concepts of the game. This game is unfinished and it will probably remain so. 
+
 Also note that the colour space is converted to gamma space while the game originally uses linear colour space, so colours shown will differ from the final product.
+
 Finally, I haven't tested multiplayer yet, but the behaviour coded in is that if the host player disconnects, everyone disconnects. I wanted to set up some sort of server authority kind of thing where the host calculates all the information, and I haven't figured out how to hand down all this info to the next host when the main guy leaves.
 
 Copyright 2019, danielnyan
