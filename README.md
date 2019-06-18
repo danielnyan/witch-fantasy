@@ -1,9 +1,9 @@
 # witch-fantasy
-Hi all, currently I'm in a slump because I'm stopping all work on this game to study for my exam, so it'll take a while for me to regain
+Hi all, currently I'm in a slump because I'm stopping all work on this game <s>because it sucks</s>, so it'll take a while for me to regain
 momentum again. I'll add more stuff to the README when I figure out something meaningful to say. 
 
 When you're ready to contribute, check out the Project menu for the long term roadmap on what to do. I'll open up issues with reference 
-to the Project tab sometime.
+to the Project tab sometime. If you want to be a collaborator, please DM me your GitHub ID on Discord. Note that this option is only open to those whom I know personally on Discord.
 
 In the meantime, here's how to open the game. 
 1. Download Unity: https://unity3d.com/get-unity/download.  
@@ -22,3 +22,14 @@ In the meantime, here's how to open the game.
 Oh yeah, when you're midair, use W and S to pitch, Q and E to yaw, A and D to roll, Space to move forward. 
 When you're on ground, use WASD to move around, Space to jump. Press Space in midair to switch to flying mode. 
 To fire, hold Right Click, then while holding, Left Click to fire. The bullet regenerates every 3 seconds. 
+
+Want to preview the game? See https://danielnyan.github.io/witch-fantasy/index.html
+
+Some notes: 
+The source files for the WebGL build meant to showcase the basic concepts of the game. This game is unfinished and it will probably remain so. 
+
+Also note that the colour space is converted to gamma space while the game originally uses linear colour space, so colours shown will differ from the final product.
+
+Finally, I haven't tested multiplayer yet, but the behaviour coded in is that if the host player disconnects, everyone disconnects. I wanted to set up some sort of server authority kind of thing where the host calculates all the information, and I haven't figured out how to hand down all this info to the next host when the main guy leaves.
+
+Copyright 2019, danielnyan
