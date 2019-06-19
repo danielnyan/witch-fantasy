@@ -1439,10 +1439,20 @@ PrefabInstance:
       propertyPath: controller
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 595340155152787003, guid: 40100a30cd030bc4d907872cc0e78d22,
+        type: 3}
+      propertyPath: smoothTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 595340155234364874, guid: 40100a30cd030bc4d907872cc0e78d22,
         type: 3}
       propertyPath: m_TagString
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 595340155234364885, guid: 40100a30cd030bc4d907872cc0e78d22,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40100a30cd030bc4d907872cc0e78d22, type: 3}

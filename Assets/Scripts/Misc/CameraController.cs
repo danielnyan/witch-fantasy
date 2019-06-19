@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour
     private float smoothTime = 0.1f;
     [SerializeField]
     private MovementController controller;
+    [SerializeField]
+    private float cameraDistance = 2.5f;
     #endregion
 
     #region Private Runtime Variables
@@ -28,7 +30,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if (trackedPivot != null && trackedPivot.gameObject.activeSelf)
         {
@@ -67,12 +69,37 @@ public class CameraController : MonoBehaviour
         {
             ToggleSmartRotate();
         }
+        if (cameraDistance < 7.5f)
+        {
+            if (Input.mouseScrollDelta.y < 0)
+            {
+                cameraDistance -= Input.mouseScrollDelta.y;
+            }
+            cameraDistance += Input.GetKey(KeyCode.Minus) ? Time.deltaTime * 10 : 0;
+        }
+        if (cameraDistance >= 7.5f)
+        {
+            cameraDistance = 7.5f;
+        }
+        if (cameraDistance > 2.5f)
+        {
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                cameraDistance -= Input.mouseScrollDelta.y;
+            }
+            cameraDistance += Input.GetKey(KeyCode.Equals) ? -Time.deltaTime * 10 : 0;
+        }
+        if (cameraDistance <= 2.5f)
+        {
+            cameraDistance = 2.5f;
+        }
     }
     #endregion
 
     #region Update Procedures
     private void GroundedCameraProcedure()
     {
+        float smoothingFactor = 1f - Mathf.Pow(0.1f, Time.deltaTime / (smoothTime));
         if (trackedPivot != null)
         {
             transform.position = trackedPivot.position;
@@ -81,14 +108,14 @@ public class CameraController : MonoBehaviour
 
         if (controller != null)
         {
-            Vector3 target = new Vector3(0, 0, -2.5f);
+            Vector3 target = new Vector3(0, 0, -cameraDistance);
             if (controller.FiringModeOn)
             {
                 target += transform.InverseTransformPoint
                     (controller.GetFiringPivotPosition());
             }
             Camera.main.transform.localPosition = Vector3.Lerp(
-                Camera.main.transform.localPosition, target, smoothTime);
+                Camera.main.transform.localPosition, target, smoothingFactor);
         }
 
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
@@ -105,12 +132,12 @@ public class CameraController : MonoBehaviour
         }
 
         Quaternion targetRotation = baseRotation * Quaternion.Euler(rotationalOffset.x, rotationalOffset.y, 0);
-        float smoothingFactor = 1f - Mathf.Pow(0.1f, Time.deltaTime / (smoothTime));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothingFactor);
     }
 
     private void FlyingCameraProcedure()
     {
+        float smoothingFactor = 1f - Mathf.Pow(0.1f, Time.deltaTime / (smoothTime));
         if (trackedPivot != null)
         {
             transform.position = trackedPivot.position;
@@ -122,7 +149,7 @@ public class CameraController : MonoBehaviour
 
         if (controller != null)
         {
-            Vector3 target = new Vector3(0, 0, -2.5f);
+            Vector3 target = new Vector3(0, 0, -cameraDistance);
             if (controller.FiringModeOn)
             {
                 target += transform.InverseTransformPoint
@@ -133,7 +160,7 @@ public class CameraController : MonoBehaviour
                 }
             }
             Camera.main.transform.localPosition = Vector3.Lerp(
-                Camera.main.transform.localPosition, target, smoothTime);
+                Camera.main.transform.localPosition, target, smoothingFactor);
         }
 
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
@@ -142,7 +169,6 @@ public class CameraController : MonoBehaviour
         }
 
         Quaternion targetRotation = baseRotation * Quaternion.Euler(rotationalOffset.x, rotationalOffset.y, 0);
-        float smoothingFactor = 1f - Mathf.Pow(0.1f, Time.deltaTime / (smoothTime));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothingFactor);
     }
     #endregion
