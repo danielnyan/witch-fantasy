@@ -5,6 +5,7 @@
         _MainTex ("Outer Texture", 2D) = "white" {}
 		_Texture1 ("Inner Texture", 2D) = "white" {}
         _Alpha ("Opacity", Range(0,1)) = 1
+		_ClipDistance ("Clip Distance", Range(0.1, 1000)) = 100
     }
     SubShader
     {
@@ -19,6 +20,7 @@
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 			float _Alpha;
+			float _ClipDistance;
 			
 			struct appdata {
 				float4 pos : POSITION;
@@ -29,6 +31,7 @@
 			struct v2f {
 				float4 pos : POSITION;
 				float2 uv : TEXCOORD0;
+				float4 worldPos : TEXCOORD1;
 			};
 
 			// Credits to DMGregory, https://gamedev.stackexchange.com/questions/136652/uv-world-mapping-in-shader-with-unity
@@ -54,6 +57,7 @@
 				o.pos = UnityObjectToClipPos(v.pos);
 				o.uv = worldToUV(v);
 				o.uv = TRANSFORM_TEX(o.uv, _MainTex);
+				o.worldPos = mul(unity_ObjectToWorld, v.pos);
 				return o;
 			}
 
@@ -75,6 +79,7 @@
 			sampler2D _Texture1;
 			float4 _Texture1_ST;
 			float _Alpha;
+			float _ClipDistance;
 			
 			struct appdata {
 				float4 pos : POSITION;
@@ -85,6 +90,8 @@
 			struct v2f {
 				float4 pos : POSITION;
 				float2 uv : TEXCOORD0;
+				float4 worldPos : TEXCOORD1;
+				float3 normal : TEXCOORD2;
 			};
 			
 			float2 worldToUV(appdata v) {
@@ -109,12 +116,17 @@
 				o.pos = UnityObjectToClipPos(v.pos);
 				o.uv = worldToUV(v);
 				o.uv = TRANSFORM_TEX(o.uv, _Texture1);
+				o.worldPos = mul(unity_ObjectToWorld, v.pos);
+				o.normal = normalize(mul(unity_ObjectToWorld, v.normal).xyz);
 				return o;
 			}
 
 			float4 frag(v2f i) : SV_TARGET {
+				float distance = abs(dot((i.worldPos - _WorldSpaceCameraPos), i.normal));
+				float delta = (_ClipDistance - distance) * 10 / _ClipDistance;
+				float alphaMul = (delta / sqrt(1 + pow(delta, 2)) + 1) / 2;
 				float4 value = tex2D(_Texture1, i.uv);
-				return float4(value.rgb, value.a * _Alpha);
+				return float4(value.rgb, value.a * _Alpha * alphaMul);
 			}
 			ENDCG
 		}
