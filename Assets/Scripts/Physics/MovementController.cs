@@ -300,6 +300,10 @@ public class MovementController : MonoBehaviourPun, IPunObservable
         {
             canFly = true;
         }
+        else if (other.CompareTag("Kill Zone"))
+        {
+            GameEvents.KillPlayer(photonView.ViewID);
+        }
     }
 
     private void OnDisable()
