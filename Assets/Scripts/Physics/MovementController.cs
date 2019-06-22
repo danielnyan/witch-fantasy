@@ -134,8 +134,11 @@ public class MovementController : MonoBehaviourPun, IPunObservable
             }
             if (currentPhase == 2)
             {
-                projectileReady = Instantiate(projectileEffect, firingPivot);
-                projectileReady.SetActive(false);
+                if (projectileReady == null)
+                {
+                    projectileReady = Instantiate(projectileEffect, firingPivot);
+                    projectileReady.SetActive(false);
+                }
 
                 rb.mass = 50f;
                 rb.drag = 0.7f;
@@ -310,6 +313,9 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     {
         canFly = true;
         IsGrounded = false;
+        twistPivot.rotation = Quaternion.identity;
+        firingRotation.rotation = Quaternion.identity;
+        projectileReady.SetActive(false);
     }
     #endregion
 
