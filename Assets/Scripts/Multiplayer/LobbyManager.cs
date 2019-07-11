@@ -62,8 +62,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         base.OnCreatedRoom();
-        PhotonNetwork.LoadLevel("Physics Test");
-        // PhotonNetwork.LoadLevel("Test Scene");
+        // PhotonNetwork.LoadLevel("Physics Test");
+        PhotonNetwork.LoadLevel("Tutorial Scene");
     }
 
     public override void OnJoinedRoom()
