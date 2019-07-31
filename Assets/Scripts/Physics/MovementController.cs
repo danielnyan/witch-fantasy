@@ -416,7 +416,8 @@ public class MovementController : MonoBehaviourPun, IPunObservable
             else if (canFly)
             {
                 photonView.RPC("GroundedToFlying", RpcTarget.All);
-            } else if (flyingDebugCooldown < 0f)
+            }
+            else if (flyingDebugCooldown < 0f)
             {
                 canFly = CheckNoFlyZone();
                 if (canFly)
@@ -476,7 +477,7 @@ public class MovementController : MonoBehaviourPun, IPunObservable
         rb.AddForce(twistPivot.forward * thrustAmount * moveSpeed);
 
         // Pitch
-        rb.AddTorque(-twistPivot.right * pitchAmount * turnSpeed);
+        rb.AddTorque(twistPivot.right * pitchAmount * turnSpeed);
         rb.AddForce(twistPivot.up * pitchAmount * moveSpeed);
 
         // Yaw
@@ -522,7 +523,7 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     // Remember to also update the boy prefab once you're done
     private void FireProjectile(Vector3 firePosition, Vector3 fireDirection, Vector3 currVelocity)
     {
-        GameEvents.FireProjectile(PhotonNetwork.LocalPlayer.ActorNumber, 
+        GameEvents.FireProjectile(PhotonNetwork.LocalPlayer.ActorNumber,
             photonView.ViewID, firePosition, fireDirection, currVelocity);
         animationController.Yeet();
         yeetingAnimationCooldown = 0.5f;
