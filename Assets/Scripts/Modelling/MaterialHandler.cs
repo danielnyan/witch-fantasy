@@ -18,5 +18,16 @@ public class MaterialHandler : MonoBehaviour
         Renderer r = GetComponent<Renderer>();
         r.materials = selected;
     }
+
+    public void TranslucentMaterials(ModelMaterialOptions options)
+    {
+        Renderer r = GetComponent<Renderer>();
+        Material[] selected = new Material[r.sharedMaterials.Length];
+        for (int i = 0; i < selected.Length; i++)
+        {
+            selected[i] = options.translucent;
+        }
+        r.sharedMaterials = selected;
+    }
 }
 

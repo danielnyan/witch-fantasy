@@ -15,7 +15,7 @@ public class ModelMaterialOptions : MonoBehaviour
     [SerializeField]
     private GameObject[] parts;
     public Material body, broom, stick, clothes, clothesAccent, eyeWhite, hair, mouth, teeth, leftEye,
-        rightEye, stocking, stockingTop, shorts;
+        rightEye, stocking, stockingTop, shorts, translucent;
     [SerializeField]
     private GameObject hairObject;
     public Mesh hairstyle;
@@ -28,6 +28,15 @@ public class ModelMaterialOptions : MonoBehaviour
             m.UpdateMaterials(this);
         }
         hairObject.GetComponent<MeshFilter>().mesh = hairstyle;
+    }
+
+    public void TranslucentMaterials()
+    {
+        foreach (GameObject part in parts)
+        {
+            MaterialHandler m = part.GetComponent<MaterialHandler>();
+            m.TranslucentMaterials(this);
+        }
     }
 
     // Assumes that order of ModelMaterials is as shown
@@ -55,6 +64,10 @@ public class ModelOptionsEditor : Editor
         if (GUILayout.Button("Update Materials"))
         {
             myScript.UpdateMaterials();
+        }
+        if (GUILayout.Button("Test Transparency"))
+        {
+            myScript.TranslucentMaterials();
         }
     }
 }

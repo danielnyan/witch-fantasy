@@ -1460,6 +1460,7 @@ MonoBehaviour:
     type: 3}
   projectileEffect: {fileID: 7884967076615565508, guid: 2719d815652deff42a8000e64b38abe2,
     type: 3}
+  invertFlyingYAxis: 1
   twistPivot: {fileID: 5025180680491273161}
   firingRotation: {fileID: 6076019415201507184}
   firingPivot: {fileID: 5925135634329718724}
@@ -2574,6 +2575,7 @@ MonoBehaviour:
   stocking: {fileID: 2100000, guid: 7bf6c0aa4dad17b4b99e63672d8f337c, type: 2}
   stockingTop: {fileID: 2100000, guid: 326444b5af943e8489fee5c190eabbbe, type: 2}
   shorts: {fileID: 2100000, guid: 2a2a11e37f6e28a45befce7cfb1317c5, type: 2}
+  translucent: {fileID: 2100000, guid: b01f8301295b7e84185dafc051443f42, type: 2}
   hairObject: {fileID: 7899754700987357822}
   hairstyle: {fileID: -6537042436428085348, guid: 1731bbc3f9f612a4e9a677b958b97b90,
     type: 3}

@@ -22,6 +22,8 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     private GameObject projectile;
     [SerializeField]
     private GameObject projectileEffect;
+    [SerializeField]
+    private int invertFlyingYAxis = 1;
     #endregion
 
     #region Runtime Variables
@@ -194,6 +196,11 @@ public class MovementController : MonoBehaviourPun, IPunObservable
         if (!setupDone)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            invertFlyingYAxis *= -1;
         }
 
         if (IsGrounded)
@@ -474,14 +481,14 @@ public class MovementController : MonoBehaviourPun, IPunObservable
         float yawAmount = Input.GetAxis("Yaw");
 
         // Thrust
-        rb.AddForce(twistPivot.forward * thrustAmount * moveSpeed);
+        rb.AddForce(transform.forward * thrustAmount * moveSpeed);
 
         // Pitch
-        rb.AddTorque(twistPivot.right * pitchAmount * turnSpeed);
-        rb.AddForce(twistPivot.up * pitchAmount * moveSpeed);
+        rb.AddTorque(invertFlyingYAxis * transform.right * pitchAmount * turnSpeed);
+        rb.AddForce(transform.up * pitchAmount * moveSpeed);
 
         // Yaw
-        rb.AddTorque(twistPivot.up * yawAmount * turnSpeed / 5f);
+        rb.AddTorque(transform.up * yawAmount * turnSpeed / 5f);
     }
 
     private void HandleFlyingInput()
@@ -489,13 +496,13 @@ public class MovementController : MonoBehaviourPun, IPunObservable
         float rollAmount = Input.GetAxis("Horizontal");
 
         // Roll
-        twistPivot.Rotate(-twistPivot.forward, rollAmount *
+        transform.Rotate(-transform.forward, rollAmount *
             Time.deltaTime * turnSpeed * 5f, Space.World);
     }
 
     private void AddUpthrust()
     {
-        rb.AddForce(twistPivot.up * rb.velocity.magnitude * twistPivot.up.y * 25f);
+        rb.AddForce(transform.up * rb.velocity.magnitude * transform.up.y * 25f);
     }
     #endregion
 
