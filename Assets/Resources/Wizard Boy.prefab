@@ -131,6 +131,7 @@ MonoBehaviour:
   stocking: {fileID: 2100000, guid: 7bf6c0aa4dad17b4b99e63672d8f337c, type: 2}
   stockingTop: {fileID: 2100000, guid: 326444b5af943e8489fee5c190eabbbe, type: 2}
   shorts: {fileID: 2100000, guid: 2a2a11e37f6e28a45befce7cfb1317c5, type: 2}
+  translucent: {fileID: 2100000, guid: 8c5cac2299f418f41b4a48e14890969e, type: 2}
   hairObject: {fileID: 5251182560513672623}
   hairstyle: {fileID: 1206087624098911941, guid: d3f7b0b9cb62bb8479f923305d7b1019,
     type: 3}

@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Transform trackedPivot = null;
     [SerializeField]
-    private bool smartRotationEnabled = true;
+    private bool fullRotationEnabled = false;
     [SerializeField]
     private float smoothTime = 0.1f;
     [SerializeField]
@@ -21,6 +21,9 @@ public class CameraController : MonoBehaviour
     private Vector3 rotationalOffset = Vector3.zero;
     private Quaternion baseRotation = Quaternion.identity;
     private bool isGrounded;
+    private bool isTranslucent;
+    private float translucencyTime = 0f;
+    private int layermask;
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -48,9 +51,10 @@ public class CameraController : MonoBehaviour
                 if (isGrounded)
                 {
                     isGrounded = false;
-                    if (smartRotationEnabled)
+                    if (fullRotationEnabled)
                     {
                         rotationalOffset = Vector3.zero;
+                        baseRotation = Quaternion.identity;
                     }
                     else
                     {
@@ -59,6 +63,30 @@ public class CameraController : MonoBehaviour
                         baseRotation = Quaternion.identity;
                     }
                 }
+            }
+
+            if (translucencyTime > 0f)
+            {
+                if (!isTranslucent)
+                {
+                    isTranslucent = true;
+                    trackedPivot.gameObject.
+                        GetComponentInChildren<ModelMaterialOptions>().TranslucentMaterials();
+                }
+            }
+            else
+            {
+                if (isTranslucent)
+                {
+                    isTranslucent = false;
+                    trackedPivot.gameObject.
+                        GetComponentInChildren<ModelMaterialOptions>().UpdateMaterials();
+                }
+            }
+
+            if (CheckSight())
+            {
+                translucencyTime = 2f;
             }
         }
     }
@@ -92,6 +120,10 @@ public class CameraController : MonoBehaviour
         if (cameraDistance <= 2.5f)
         {
             cameraDistance = 2.5f;
+        }
+        if (translucencyTime > 0f)
+        {
+            translucencyTime -= Time.deltaTime;
         }
     }
     #endregion
@@ -141,7 +173,7 @@ public class CameraController : MonoBehaviour
         if (trackedPivot != null)
         {
             transform.position = trackedPivot.position;
-            if (smartRotationEnabled)
+            if (fullRotationEnabled)
             {
                 baseRotation = trackedPivot.rotation;
             }
@@ -154,7 +186,7 @@ public class CameraController : MonoBehaviour
             {
                 target += transform.InverseTransformPoint
                     (controller.GetFiringPivotPosition());
-                if (smartRotationEnabled)
+                if (fullRotationEnabled)
                 {
                     ClampRotationOffset();
                 }
@@ -201,7 +233,7 @@ public class CameraController : MonoBehaviour
     {
         if (!isGrounded)
         {
-            if (!smartRotationEnabled)
+            if (!fullRotationEnabled)
             {
                 rotationalOffset = Vector3.zero;
             }
@@ -212,7 +244,7 @@ public class CameraController : MonoBehaviour
                 baseRotation = Quaternion.identity;
             }
         }
-        smartRotationEnabled = !smartRotationEnabled;
+        fullRotationEnabled = !fullRotationEnabled;
     }
 
     private void ClampRotationOffset()
@@ -234,6 +266,54 @@ public class CameraController : MonoBehaviour
             rotationalOffset.y = -90f;
         }
     }
+
+    private bool CheckSight()
+    {
+        return CheckSight(Camera.main.transform.position, 
+            Camera.main.transform.forward, 100f, layermask);
+    }
+
+    // Queries the centre and another random point to make the player translucent using 
+    // the power of statistics
+    private bool CheckSight(Vector3 origin, Vector3 direction, float distance, int layermask)
+    {
+        Ray ray = new Ray(origin, direction);
+        if (Physics.Raycast(ray, distance, layermask))
+        {
+            return true;
+        }
+        Vector3 newDirection;
+        for (int i = 0; i < 20; i++)
+        {
+            float magnitude = 0.2f * Random.value;
+            float angle = 2 * Mathf.PI * Random.value;
+            newDirection = direction + Quaternion.FromToRotation(Vector3.forward, direction)
+                * (magnitude * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0));
+            newDirection.Normalize();
+            ray = new Ray(origin, newDirection);
+            if (Physics.Raycast(ray, distance, layermask))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Gets the layermask that the layer collides with
+    /// </summary>
+    private int GetLayermask(int layer)
+    {
+        int output = 0;
+        for (int i = 0; i < 32; i++)
+        {
+            if (!Physics.GetIgnoreLayerCollision(layer, i))
+            {
+                output = output | 1 << i;
+            }
+        }
+        return output;
+    }
     #endregion
 
     #region Public Methods
@@ -244,6 +324,10 @@ public class CameraController : MonoBehaviour
         baseRotation = Quaternion.identity;
         rotationalOffset = Vector3.zero;
         controller = obj.GetComponent<MovementController>();
+
+        layermask = GetLayermask(obj.gameObject.layer);
+        int eventZoneLayer = LayerMask.NameToLayer("Event Zone");
+        layermask = layermask & ~(1 << eventZoneLayer);
     }
     #endregion
 }
