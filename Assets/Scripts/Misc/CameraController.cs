@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private bool fullRotationEnabled = false;
     [SerializeField]
+    private bool translucencyEnabled = false;
+    [SerializeField]
     private float smoothTime = 0.1f;
     [SerializeField]
     private MovementController controller;
@@ -64,23 +66,25 @@ public class CameraController : MonoBehaviour
                     }
                 }
             }
-
-            if (translucencyTime > 0f)
+            if (translucencyEnabled)
             {
-                if (!isTranslucent)
+                if (translucencyTime > 0f)
                 {
-                    isTranslucent = true;
-                    trackedPivot.gameObject.
-                        GetComponentInChildren<ModelMaterialOptions>().TranslucentMaterials();
+                    if (!isTranslucent)
+                    {
+                        isTranslucent = true;
+                        trackedPivot.gameObject.
+                            GetComponentInChildren<ModelMaterialOptions>().TranslucentMaterials();
+                    }
                 }
-            }
-            else
-            {
-                if (isTranslucent)
+                else
                 {
-                    isTranslucent = false;
-                    trackedPivot.gameObject.
-                        GetComponentInChildren<ModelMaterialOptions>().UpdateMaterials();
+                    if (isTranslucent)
+                    {
+                        isTranslucent = false;
+                        trackedPivot.gameObject.
+                            GetComponentInChildren<ModelMaterialOptions>().UpdateMaterials();
+                    }
                 }
             }
 
@@ -96,6 +100,10 @@ public class CameraController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             ToggleSmartRotate();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ToggleTranslucency();
         }
         if (cameraDistance < 7.5f)
         {
@@ -245,6 +253,11 @@ public class CameraController : MonoBehaviour
             }
         }
         fullRotationEnabled = !fullRotationEnabled;
+    }
+
+    private void ToggleTranslucency()
+    {
+        translucencyEnabled = !translucencyEnabled;
     }
 
     private void ClampRotationOffset()
