@@ -234,7 +234,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (playerTeams[photonID] == 1)
         {
             playerLayer = LayerMask.NameToLayer("PurpleTeam");
-        } else
+        }
+        else
         {
             playerLayer = LayerMask.NameToLayer("GreenTeam");
         }

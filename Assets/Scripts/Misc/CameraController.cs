@@ -8,15 +8,9 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Transform trackedPivot = null;
     [SerializeField]
-    private bool fullRotationEnabled = false;
-    [SerializeField]
-    private bool translucencyEnabled = false;
-    [SerializeField]
     private float smoothTime = 0.1f;
     [SerializeField]
     private MovementController controller;
-    [SerializeField]
-    private float cameraDistance = 2.5f;
     #endregion
 
     #region Private Runtime Variables
@@ -53,7 +47,7 @@ public class CameraController : MonoBehaviour
                 if (isGrounded)
                 {
                     isGrounded = false;
-                    if (fullRotationEnabled)
+                    if (SettingsManager.instance.fullRotationEnabled)
                     {
                         rotationalOffset = Vector3.zero;
                         baseRotation = Quaternion.identity;
@@ -66,7 +60,17 @@ public class CameraController : MonoBehaviour
                     }
                 }
             }
-            if (translucencyEnabled)
+            int translucencyEnabled = SettingsManager.instance.translucencyEnabled;
+            if (translucencyEnabled == 0)
+            {
+                if (isTranslucent)
+                {
+                    isTranslucent = false;
+                    trackedPivot.gameObject.
+                        GetComponentInChildren<ModelMaterialOptions>().UpdateMaterials();
+                }
+            }
+            else if (translucencyEnabled == 1)
             {
                 if (translucencyTime > 0f)
                 {
@@ -86,9 +90,18 @@ public class CameraController : MonoBehaviour
                             GetComponentInChildren<ModelMaterialOptions>().UpdateMaterials();
                     }
                 }
+            } 
+            else
+            {
+                if (!isTranslucent)
+                {
+                    isTranslucent = true;
+                    trackedPivot.gameObject.
+                        GetComponentInChildren<ModelMaterialOptions>().TranslucentMaterials();
+                }
             }
 
-            if (CheckSight())
+            if (translucencyEnabled == 1 && CheckSight())
             {
                 translucencyTime = 2f;
             }
@@ -99,35 +112,7 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            ToggleSmartRotate();
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ToggleTranslucency();
-        }
-        if (cameraDistance < 7.5f)
-        {
-            if (Input.mouseScrollDelta.y < 0)
-            {
-                cameraDistance -= Input.mouseScrollDelta.y;
-            }
-            cameraDistance += Input.GetKey(KeyCode.Minus) ? Time.deltaTime * 10 : 0;
-        }
-        if (cameraDistance >= 7.5f)
-        {
-            cameraDistance = 7.5f;
-        }
-        if (cameraDistance > 2.5f)
-        {
-            if (Input.mouseScrollDelta.y > 0)
-            {
-                cameraDistance -= Input.mouseScrollDelta.y;
-            }
-            cameraDistance += Input.GetKey(KeyCode.Equals) ? -Time.deltaTime * 10 : 0;
-        }
-        if (cameraDistance <= 2.5f)
-        {
-            cameraDistance = 2.5f;
+            ToggleCameraRotate();
         }
         if (translucencyTime > 0f)
         {
@@ -148,7 +133,7 @@ public class CameraController : MonoBehaviour
 
         if (controller != null)
         {
-            Vector3 target = new Vector3(0, 0, -cameraDistance);
+            Vector3 target = new Vector3(0, 0, -SettingsManager.instance.cameraDistance);
             if (controller.FiringModeOn)
             {
                 target += transform.InverseTransformPoint
@@ -178,6 +163,7 @@ public class CameraController : MonoBehaviour
     private void FlyingCameraProcedure()
     {
         float smoothingFactor = 1f - Mathf.Pow(0.1f, Time.deltaTime / (smoothTime));
+        bool fullRotationEnabled = SettingsManager.instance.fullRotationEnabled;
         if (trackedPivot != null)
         {
             transform.position = trackedPivot.position;
@@ -189,7 +175,7 @@ public class CameraController : MonoBehaviour
 
         if (controller != null)
         {
-            Vector3 target = new Vector3(0, 0, -cameraDistance);
+            Vector3 target = new Vector3(0, 0, -SettingsManager.instance.cameraDistance);
             if (controller.FiringModeOn)
             {
                 target += transform.InverseTransformPoint
@@ -237,11 +223,11 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void ToggleSmartRotate()
+    private void ToggleCameraRotate()
     {
         if (!isGrounded)
         {
-            if (!fullRotationEnabled)
+            if (!SettingsManager.instance.fullRotationEnabled)
             {
                 rotationalOffset = Vector3.zero;
             }
@@ -252,13 +238,10 @@ public class CameraController : MonoBehaviour
                 baseRotation = Quaternion.identity;
             }
         }
-        fullRotationEnabled = !fullRotationEnabled;
+        SettingsManager.instance.fullRotationEnabled = !SettingsManager.instance.fullRotationEnabled;
     }
 
-    private void ToggleTranslucency()
-    {
-        translucencyEnabled = !translucencyEnabled;
-    }
+    
 
     private void ClampRotationOffset()
     {

@@ -1467,7 +1467,6 @@ MonoBehaviour:
     type: 3}
   projectileEffect: {fileID: 7884967076615565508, guid: 2719d815652deff42a8000e64b38abe2,
     type: 3}
-  invertFlyingYAxis: 1
   twistPivot: {fileID: 5025180680491273161}
   firingRotation: {fileID: 6076019415201507184}
   firingPivot: {fileID: 5925135634329718724}

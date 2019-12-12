@@ -22,8 +22,6 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     private GameObject projectile;
     [SerializeField]
     private GameObject projectileEffect;
-    [SerializeField]
-    private int invertFlyingYAxis = 1;
     #endregion
 
     #region Runtime Variables
@@ -198,11 +196,6 @@ public class MovementController : MonoBehaviourPun, IPunObservable
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            invertFlyingYAxis *= -1;
-        }
-
         if (IsGrounded)
         {
             GroundedUpdate();
@@ -259,7 +252,7 @@ public class MovementController : MonoBehaviourPun, IPunObservable
             }
             projectileReady.SetActive(false);
         }
-
+        
         HandleCooldowns();
     }
 
@@ -484,7 +477,7 @@ public class MovementController : MonoBehaviourPun, IPunObservable
         rb.AddForce(transform.forward * thrustAmount * moveSpeed);
 
         // Pitch
-        rb.AddTorque(invertFlyingYAxis * transform.right * pitchAmount * turnSpeed);
+        rb.AddTorque(SettingsManager.instance.invertFlyingYAxis * transform.right * pitchAmount * turnSpeed);
         rb.AddForce(transform.up * pitchAmount * moveSpeed);
 
         // Yaw
