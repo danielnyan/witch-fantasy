@@ -43,6 +43,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
   isStationary: 0
+  score: 2
 --- !u!95 &5089560151198319897
 Animator:
   serializedVersion: 3

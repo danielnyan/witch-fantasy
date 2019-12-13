@@ -165,8 +165,24 @@ public class MovementController : MonoBehaviourPun, IPunObservable
                 }
                 currentPhase += 1;
             }
-
             if (currentPhase == 4)
+            {
+                if (SettingsManager.instance == null)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
+                if (SettingsManager.instance.transform.root.GetComponentInChildren<UIManager>() == null)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
+                if (photonView.IsMine || !PhotonNetwork.IsConnected)
+                {
+                    UIManager uiManager = SettingsManager.instance.transform.root.GetComponentInChildren<UIManager>();
+                    uiManager.TrackObject(gameObject);
+                }
+                currentPhase += 1;
+            }
+            if (currentPhase == 5)
             {
                 if (animationController.IsReady())
                 {

@@ -16,10 +16,13 @@ public class CameraController : MonoBehaviour
     #region Private Runtime Variables
     private Vector3 rotationalOffset = Vector3.zero;
     private Quaternion baseRotation = Quaternion.identity;
-    private bool isGrounded;
     private bool isTranslucent;
     private float translucencyTime = 0f;
     private int layermask;
+    #endregion
+
+    #region Public Runtime Variables
+    public bool IsGrounded { get; private set; }
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -36,17 +39,17 @@ public class CameraController : MonoBehaviour
             if (controller.IsGrounded)
             {
                 GroundedCameraProcedure();
-                if (!isGrounded)
+                if (!IsGrounded)
                 {
-                    isGrounded = true;
+                    IsGrounded = true;
                 }
             }
             else
             {
                 FlyingCameraProcedure();
-                if (isGrounded)
+                if (IsGrounded)
                 {
-                    isGrounded = false;
+                    IsGrounded = false;
                     if (SettingsManager.instance.fullRotationEnabled)
                     {
                         rotationalOffset = Vector3.zero;
@@ -110,10 +113,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            ToggleCameraRotate();
-        }
         if (translucencyTime > 0f)
         {
             translucencyTime -= Time.deltaTime;
@@ -223,26 +222,6 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void ToggleCameraRotate()
-    {
-        if (!isGrounded)
-        {
-            if (!SettingsManager.instance.fullRotationEnabled)
-            {
-                rotationalOffset = Vector3.zero;
-            }
-            else
-            {
-                rotationalOffset = transform.rotation.eulerAngles;
-                rotationalOffset.z = 0;
-                baseRotation = Quaternion.identity;
-            }
-        }
-        SettingsManager.instance.fullRotationEnabled = !SettingsManager.instance.fullRotationEnabled;
-    }
-
-    
-
     private void ClampRotationOffset()
     {
         if (rotationalOffset.x > 90f)
@@ -324,6 +303,24 @@ public class CameraController : MonoBehaviour
         layermask = GetLayermask(obj.gameObject.layer);
         int eventZoneLayer = LayerMask.NameToLayer("Event Zone");
         layermask = layermask & ~(1 << eventZoneLayer);
+    }
+
+    public void ToggleCameraRotate()
+    {
+        if (!IsGrounded)
+        {
+            if (!SettingsManager.instance.fullRotationEnabled)
+            {
+                rotationalOffset = Vector3.zero;
+            }
+            else
+            {
+                rotationalOffset = transform.rotation.eulerAngles;
+                rotationalOffset.z = 0;
+                baseRotation = Quaternion.identity;
+            }
+        }
+        SettingsManager.instance.fullRotationEnabled = !SettingsManager.instance.fullRotationEnabled;
     }
     #endregion
 }

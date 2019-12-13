@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     private bool isStationary;
+    [SerializeField]
+    private int score;
+
     private Quaternion targetRotation;
     private float velocity;
 
@@ -16,6 +19,15 @@ public class Enemy : MonoBehaviour
     private void OnDestroy()
     {
         enemySpawner.numberOfEnemies--;
+        // This is shitty design, but meh. It's just a demo
+        if (SettingsManager.instance != null)
+        {
+            UIManager manager = SettingsManager.instance.transform.root.GetComponentInChildren<UIManager>();
+            if (manager != null)
+            {
+                manager.IncrementScore(score);
+            }
+        }
     }
 
     private void Start()

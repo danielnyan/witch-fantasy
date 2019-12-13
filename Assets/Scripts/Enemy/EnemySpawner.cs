@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < 50; i++)
         {
-            SpawnNewEnemy(2);
+            SpawnNewEnemy(1);
         }
     }
 

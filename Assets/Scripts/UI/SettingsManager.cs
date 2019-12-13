@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,10 @@ public class SettingsManager : MonoBehaviour
     public bool fullRotationEnabled = false;
     #endregion
 
+    #region Runtime Variables
+    private UIManager uimanager;
+    #endregion
+
     #region MonoBehaviour Callbacks
     private void Awake()
     {
@@ -30,6 +35,11 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        uimanager = transform.Find("UI").GetComponent<UIManager>();
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -39,7 +49,19 @@ public class SettingsManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            invertFlyingYAxis *= -1;
+            ToggleFlyingYAxis();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ToggleCameraRotation();
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            ToggleUIDisplay();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ToggleMenu();
         }
         if (!menuActive)
         {
@@ -72,13 +94,50 @@ public class SettingsManager : MonoBehaviour
     #endregion
 
     #region Settings Adjusting Methods
-    private void ToggleTranslucency()
+    public void ToggleTranslucency()
     {
-        translucencyEnabled++;
-        if (translucencyEnabled > 2)
+        instance.translucencyEnabled++;
+        if (instance.translucencyEnabled > 2)
         {
-            translucencyEnabled = 0;
+            instance.translucencyEnabled = 0;
         }
+        uimanager.UpdateControlPanelElements();
+    }
+
+    public void ToggleFlyingYAxis()
+    {
+        instance.invertFlyingYAxis *= -1;
+        uimanager.UpdateControlPanelElements();
+    }
+
+    public void ToggleCameraRotation()
+    {
+        Camera.main.transform.root.GetComponent<CameraController>().ToggleCameraRotate();
+        uimanager.UpdateControlPanelElements();
+    }
+
+    public void ToggleMenu()
+    {
+        if (!instance.menuActive)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        instance.menuActive = !instance.menuActive;
+        uimanager.ToggleUIMenu();
+    }
+
+    public void ToggleUIDisplay()
+    {
+        uimanager.ToggleUIDisplay();
+    }
+
+    public void SetCameraDistance(float value)
+    {
+        instance.cameraDistance = value;
     }
     #endregion
 }

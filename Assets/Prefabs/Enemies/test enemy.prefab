@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
   isStationary: 1
+  score: 1
 --- !u!65 &194552049665898998
 BoxCollider:
   m_ObjectHideFlags: 0
