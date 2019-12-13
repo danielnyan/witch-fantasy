@@ -2,9 +2,9 @@
 "companyName": "DefaultCompany",
 "productName": "Witch Fantasy Game",
 "productVersion": "0.1",
-"dataUrl": "Witch Fantasy Game WebGL.data.unityweb",
-"wasmCodeUrl": "Witch Fantasy Game WebGL.wasm.code.unityweb",
-"wasmFrameworkUrl": "Witch Fantasy Game WebGL.wasm.framework.unityweb",
+"dataUrl": "Witch Fantasy Game WebGL.data.gz",
+"wasmCodeUrl": "Witch Fantasy Game WebGL.wasm.gz",
+"wasmFrameworkUrl": "Witch Fantasy Game WebGL.framework.js.gz",
 "graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
 "splashScreenStyle": "Dark",
@@ -12,5 +12,5 @@
 "cacheControl": {"default": "must-revalidate"},
 "developmentBuild": false,
 "multithreading": false,
-"unityVersion": "2019.3.0a5"
+"unityVersion": "2020.1.0a14"
 }
