@@ -1,35 +1,22 @@
 # witch-fantasy
-Hi all, currently I'm in a slump because I'm stopping all work on this game <s>because it sucks</s>, so it'll take a while for me to regain
-momentum again. I'll add more stuff to the README when I figure out something meaningful to say. 
+I've abandoned this project for quite a while. The only reason why this repo still exists is to showcase the kind of stuff that I do in Unity as a hobby, and maybe to give out free code and particle effects to any user that bumps into this repo. 
 
-When you're ready to contribute, check out the Project menu for the long term roadmap on what to do. I'll open up issues with reference 
-to the Project tab sometime. If you want to be a collaborator, please DM me your GitHub ID on Discord. Note that this option is only open to those whom I know personally on Discord.
+Built with Unity 2020.1.0a14.1541. WebGL is currently really fucky, but if I do manage to get it running, you can see it here at https://danielnyan.github.io/witch-fantasy/index.html. The source code can be found in the demo-source branch.
 
-In the meantime, here's how to open the game. 
-1. Download Unity: https://unity3d.com/get-unity/download.  
-   Install Unity Hub, then use that to install the latest version of Unity
-2. Download the project into a folder and open the folder itself using Unity.  
-   If you encounter a warning that says that the Unity version used by the project differs from your Unity version, don't worry. Just 
-   let it update all the files. We will decide on a standardised version of Unity to use later on.
-3. After opening the project, setup the multiplayer settings by going to Window > Photon Unity Networking > Highlight Server Settings.  
-   The "Window" button is on the top ribbon.
-4. Under PhotonServerSettings, check "Use Name Server", then enter "ce449a90-b0a9-4684-9f88-db63d282d27d" as the App Id Realtime. Also 
-   clear the IP address under Server and leave the port as 5055.  
-   Eventually I'll add an offline mode so that anyone can test. Later down the road, I'll find a way to host the game through localhost, 
-   and then using a dedicated server. 
-5. Ensure that the scene you're looking at is "Test Lobby". Press the Play button and you're good to go!  
+If that doesn't work, just clone the repo on your computer, download Unity and open the project. 
 
-Oh yeah, when you're midair, use W and S to pitch, Q and E to yaw, A and D to roll, Space to move forward. 
-When you're on ground, use WASD to move around, Space to jump. Press Space in midair to switch to flying mode. 
-To fire, hold Right Click, then while holding, Left Click to fire. The bullet regenerates every 3 seconds. 
+You are free to use any assets here except for the Wizard Boy and Witch Girl models (all rights reserved), as well as any public Unity Assets / fonts that are obviously not created by me, namely,
 
-Want to preview the game? See https://danielnyan.github.io/witch-fantasy/index.html
-
-Some notes: 
-The source files for the WebGL build meant to showcase the basic concepts of the game. This game is unfinished and it will probably remain so. 
-
-Also note that the colour space is converted to gamma space while the game originally uses linear colour space, so colours shown will differ from the final product.
-
-Finally, I haven't tested multiplayer yet, but the behaviour coded in is that if the host player disconnects, everyone disconnects. I wanted to set up some sort of server authority kind of thing where the host calculates all the information, and I haven't figured out how to hand down all this info to the next host when the main guy leaves.
+1. Photon Unity Networking (Free): Terms and conditions can be found at https://dashboard.photonengine.com/en/Account/LicenseTerms
+2. UnityChan Toon Shader: © Unity Technologies Japan/UCL. The Unity Chan License can be found here at https://unity-chan.com/contents/guideline_en/
+3. Unity Standard Assets and TextMesh Pro: Unity Technologies. Covered under the Asset Store EULA https://unity3d.com/legal/as_terms?_ga=2.259042124.730882073.1576143411-336424233.1576143411
+4. 3LE Low Poly Cloud Pack: 3LE Studios. https://assetstore.unity.com/packages/3d/3le-low-poly-cloud-pack-65911. Covered under Asset Store EULA
+5. Cope! Free Skybox Pack: 70:30. https://assetstore.unity.com/packages/2d/textures-materials/sky/cope-free-skybox-pack-22252. Covered under Asset Store EULA
+6. Low Poly Sets: by PigArt in the tutorial video https://blenderartists.org/t/blender-tutorial-low-poly-forest-assets/597019. I'm not sure what license these are under. *sweats*
+7. LowPoly Rocks: Snowfiend Studios. https://assetstore.unity.com/packages/3d/environments/lowpoly-rocks-137970. Covered under Asset Store EULA
+8. Wispy Skybox: Mundus. https://assetstore.unity.com/packages/2d/textures-materials/sky/wispy-skybox-21737. Covered under the Asset Store EULA
+9. External Scripts (in Assets > External Assets > External Scripts): The sources are found in the scripts themselves, but either delete them or ask the authors for permission if you're using them for anything other than personal use. The current codebase doesn't use them anyway.
+10. Fonts: All fonts are Google Fonts that are covered by the Open Font License which can be found at http://scripts.sil.org/OFL. The licenses for each font (except for Avenir) are found in Assets > Fonts.
+The rest of the stuff are covered under the MIT License that's inside this repository. Enjoy!
 
 Copyright 2019, danielnyan
