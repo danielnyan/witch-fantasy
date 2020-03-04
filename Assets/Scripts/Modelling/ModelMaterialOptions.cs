@@ -19,6 +19,10 @@ public class ModelMaterialOptions : MonoBehaviour
     [SerializeField]
     private GameObject hairObject;
     public Mesh hairstyle;
+    [SerializeField]
+    private GameObject hatObject;
+    public Vector3 hatLocalOffset;
+    public ParticleSystem broomParticles;
 
     public void UpdateMaterials()
     {
@@ -28,6 +32,7 @@ public class ModelMaterialOptions : MonoBehaviour
             m.UpdateMaterials(this);
         }
         hairObject.GetComponent<MeshFilter>().mesh = hairstyle;
+        hatObject.transform.localPosition = hatLocalOffset;
     }
 
     public void TranslucentMaterials()

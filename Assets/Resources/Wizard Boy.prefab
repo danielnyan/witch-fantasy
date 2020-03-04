@@ -135,6 +135,9 @@ MonoBehaviour:
   hairObject: {fileID: 5251182560513672623}
   hairstyle: {fileID: 1206087624098911941, guid: d3f7b0b9cb62bb8479f923305d7b1019,
     type: 3}
+  hatObject: {fileID: 5251182560513672617}
+  hatLocalOffset: {x: 0, y: 0, z: 0}
+  broomParticles: {fileID: 385948667232861319}
 --- !u!114 &4296365055045525386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +373,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -688,6 +692,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1266,6 +1271,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1417,6 +1423,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1569,6 +1576,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1724,6 +1732,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1935,6 +1944,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2154,6 +2164,7 @@ MonoBehaviour:
     type: 3}
   projectileEffect: {fileID: 5257186808644605874, guid: 454e173b51928bb43a25397fb4d0c4aa,
     type: 3}
+  invertFlyingYAxis: 1
   twistPivot: {fileID: 4296365055045525388}
   firingRotation: {fileID: 5632236049222887192}
   firingPivot: {fileID: 4059110048621367863}
@@ -2315,6 +2326,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2616,6 +2628,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2771,6 +2784,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3045,6 +3059,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3317,6 +3332,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3568,6 +3584,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3592,6 +3609,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5251182560513672625
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,6 +4150,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4297,6 +4316,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4322,6 +4342,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7954480724513934460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4591,10 +4612,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5251182560513579507}
     m_Modifications:
-    - target: {fileID: 8331554136109469545, guid: 32b4bd0f24930db45b929c99495e093c,
+    - target: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
         type: 3}
-      propertyPath: m_Name
-      value: Broom Particles
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.018912422
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.8018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.38070363
       objectReference: {fileID: 0}
     - target: {fileID: 7062713096448970807, guid: 32b4bd0f24930db45b929c99495e093c,
         type: 3}
@@ -4666,23 +4697,19 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.20000014
       objectReference: {fileID: 0}
-    - target: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
+    - target: {fileID: 8331554136109469545, guid: 32b4bd0f24930db45b929c99495e093c,
         type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.018912422
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.8018868
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.38070363
+      propertyPath: m_Name
+      value: Broom Particles
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32b4bd0f24930db45b929c99495e093c, type: 3}
+--- !u!198 &385948667232861319 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4296365056301109684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6457050694769541507 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7062713096448970807, guid: 32b4bd0f24930db45b929c99495e093c,

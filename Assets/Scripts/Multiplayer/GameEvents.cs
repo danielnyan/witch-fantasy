@@ -15,22 +15,33 @@ public class GameEvents : MonoBehaviour
     #endregion
 
     #region Event Codes
-    public static readonly byte eventPlayerJoined = 0;
-    public static readonly byte eventKillPlayer = 1;
-    public static readonly byte eventRespawnPlayer = 2;
-    public static readonly byte eventFireProjectile = 3;
+    public static readonly byte eventPlayerJoined = 1;
+    public static readonly byte eventKillPlayer = 2;
+    public static readonly byte eventRespawnPlayer = 3;
+    public static readonly byte eventFireProjectile = 4;
+    public static readonly byte eventSceneLoaded = 5;
     #endregion
 
     #region Event Wrappers
-    public static void PlayerJoined(int playerID, Dictionary<int, bool> isDead,
-        Dictionary<int, int> playerTeams)
+    public static void PlayerJoined(Dictionary<int, bool> isDead,
+        Dictionary<int, int> playerTeams, Dictionary<int, int[]> materialMetadata)
     {
-        // Sent: from Master Client to Newly Joined
+        // Sent: from Master Client to Everyone
         // Content: (Dictionary<int, bool>) isDead, (Dictionary<int, int>) playerTeams
-        int[] clients = new int[] { playerID };
-        object[] content = new object[] { isDead, playerTeams };
-        PhotonNetwork.RaiseEvent(eventPlayerJoined, content,
-            TargetClients(clients), sendOptions);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            int[] clients = null;
+            object[] content = new object[] { isDead, playerTeams, materialMetadata };
+            PhotonNetwork.RaiseEvent(eventPlayerJoined, content,
+                TargetClients(clients), sendOptions);
+        }
+    }
+
+    public static void InformSceneLoaded()
+    {
+        // Sent: from player to Master Client
+        // Content: none, as for now. But might want to add ID for integrity check.
+        PhotonNetwork.RaiseEvent(eventSceneLoaded, null, null, sendOptions);
     }
 
     public static void KillPlayer(int photonID)

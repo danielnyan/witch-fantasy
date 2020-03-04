@@ -35,7 +35,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
-        // PhotonNetwork.ConnectToMaster("192.168.56.1", 5056, "null");
     }
     #endregion
 

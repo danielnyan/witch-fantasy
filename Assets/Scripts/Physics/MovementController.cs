@@ -638,5 +638,17 @@ public class MovementController : MonoBehaviourPun, IPunObservable
     {
         canSetup = true;
     }
+
+    public void SetProjectileEffect(GameObject effect)
+    {
+        projectileEffect = effect;
+        int loopTimes = firingPivot.transform.childCount;
+        for (int i = 0; i < loopTimes; i++)
+        {
+            Destroy(firingPivot.transform.GetChild(0).gameObject);
+        }
+        projectileReady = Instantiate(projectileEffect, firingPivot);
+        projectileReady.SetActive(false);
+    }
     #endregion
 }

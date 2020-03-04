@@ -22,11 +22,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     */
     private Dictionary<int, int> playerToPhoton = new Dictionary<int, int>();
 
-    // Handles player death and respawns
+    // Handles player death and respawns. Key is the PhotonViewID
     private Dictionary<int, bool> isDead = new Dictionary<int, bool>();
     private HashSet<int> deadPlayers = new HashSet<int>();
     private Dictionary<int, float> revivalTime = new Dictionary<int, float>();
     private List<int> respawnQueue = new List<int>();
+
+    // Handles appearances of players. The int[] argument stores the following:
+    // isMale, leftEyeIndex, rightEyeIndex, hairColour, hairstyle
+    private Dictionary<int, int[]> materialMetadata = new Dictionary<int, int[]>();
 
     // Handles team management
     private Vector3 spawn0 = Vector3.zero;
@@ -38,7 +42,32 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     #region Private Serializable Fields
     [SerializeField]
-    private GameObject prefab;
+    private GameObject femalePrefab;
+    [SerializeField]
+    private GameObject malePrefab;
+    [SerializeField]
+    private Material[] leftEyes;
+    [SerializeField]
+    private Material[] rightEyes;
+    [SerializeField]
+    private Material[] hairColours;
+    [SerializeField]
+    private Mesh[] femaleHairstyles;
+    [SerializeField]
+    private Vector3[] femaleHatOffsets;
+    [SerializeField]
+    private Mesh[] maleHairstyles;
+    [SerializeField]
+    private Vector3[] maleHatOffsets;
+    // broom, stick, clothes, clothes accent, translucency
+    [SerializeField]
+    private Material[] purpleMaterials;
+    [SerializeField]
+    private GameObject purpleProjectileEffect;
+    [SerializeField]
+    private Material[] greenMaterials;
+    [SerializeField]
+    private GameObject greenProjectileEffect;
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -58,7 +87,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            CreatePlayer(prefab.name, PhotonNetwork.LocalPlayer, Vector3.zero);
+            CreatePlayer(PhotonNetwork.LocalPlayer, Vector3.zero);
+        }
+        else
+        {
+            GameEvents.InformSceneLoaded();
         }
     }
 
@@ -77,15 +110,24 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     public void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
-        if (eventCode == GameEvents.eventPlayerJoined)
+        if (eventCode == GameEvents.eventSceneLoaded)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GameEvents.PlayerJoined(isDead, playerTeams, materialMetadata);
+            }
+        }
+        else if (eventCode == GameEvents.eventPlayerJoined)
         {
             object[] data = (object[])photonEvent.CustomData;
             Dictionary<int, bool> isDead = (Dictionary<int, bool>)data[0];
             Dictionary<int, int> playerTeams = (Dictionary<int, int>)data[1];
+            Dictionary<int, int[]> materialMetadata = (Dictionary<int, int[]>)data[2];
             foreach (KeyValuePair<int, bool> pair in isDead)
             {
                 PhotonView p = PhotonView.Find(pair.Key);
-                p.gameObject.SetActive(pair.Value);
+                SetupMaterials(p.gameObject, materialMetadata[pair.Key], playerTeams[pair.Key]);
+                p.gameObject.SetActive(!pair.Value);
                 int playerLayer =
                     playerTeams[pair.Key] == 1 ? LayerMask.NameToLayer("PurpleTeam") :
                     LayerMask.NameToLayer("GreenTeam");
@@ -112,12 +154,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             object[] data = (object[])photonEvent.CustomData;
             int photonID = (int)data[0];
             Vector3 position = (Vector3)data[1];
+
             PhotonView p = PhotonView.Find(photonID);
             if (p != null)
             {
                 p.gameObject.transform.position = position;
                 p.gameObject.transform.rotation = Quaternion.identity;
                 p.gameObject.SetActive(true);
+            }
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                isDead[photonID] = false;
             }
         }
         else if (eventCode == GameEvents.eventFireProjectile)
@@ -174,7 +222,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         base.OnPlayerEnteredRoom(player);
         if (PhotonNetwork.IsMasterClient)
         {
-            CreatePlayer(prefab.name, player, spawn0);
+            CreatePlayer(player, spawn0);
         }
     }
 
@@ -200,12 +248,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     #endregion
 
     #region Private Methods
-    private void CreatePlayer(string prefabName, Player player, Vector3 spawn)
+    private void CreatePlayer(Player player, Vector3 spawn)
     {
         GameObject playerObj = null;
+        bool isMale = false;
         if (player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
         {
             // Create for host and transfer to player
+            isMale = (Random.Range(-1f, 1f) >= 0);
+            string prefabName = isMale ? malePrefab.name : femalePrefab.name;
             playerObj = PhotonNetwork.InstantiateSceneObject(prefabName, spawn, Quaternion.identity);
             playerObj.GetPhotonView().TransferOwnership(player.ActorNumber);
             playerObj.transform.GetChild(0).gameObject.GetPhotonView().TransferOwnership(player.ActorNumber);
@@ -213,6 +264,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         else
         {
             // Just create for host
+            isMale = (Random.Range(-1f, 1f) >= 0);
+            string prefabName = isMale ? malePrefab.name : femalePrefab.name;
             playerObj = PhotonNetwork.Instantiate(prefabName, spawn, Quaternion.identity);
         }
 
@@ -234,16 +287,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (playerTeams[photonID] == 1)
         {
             playerLayer = LayerMask.NameToLayer("PurpleTeam");
-        } else
+        }
+        else
         {
             playerLayer = LayerMask.NameToLayer("GreenTeam");
         }
         SetLayerRecursively(playerObj, playerLayer);
+        int[] metadata = GenerateMaterialMetadata(isMale);
+        SetupMaterials(playerObj, metadata, playerTeams[photonID]);
         playerObj.GetComponent<MovementController>().EnableCharacter();
         playerObj.SetActive(true);
 
         playerToPhoton.Add(player.ActorNumber, photonID);
         isDead.Add(photonID, false);
+        materialMetadata.Add(photonID, metadata);
     }
 
     private void RemovePlayer(Player player)
@@ -265,6 +322,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             teamBalance -= 1;
         }
         playerTeams.Remove(photonID);
+        materialMetadata.Remove(photonID);
         playerToPhoton.Remove(player.ActorNumber);
     }
 
@@ -307,6 +365,58 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             }
             SetLayerRecursively(child.gameObject, newLayer);
         }
+    }
+
+    // isMale, leftEyeIndex, rightEyeIndex, hairColour, hairstyle
+    private int[] GenerateMaterialMetadata(bool isMale)
+    {
+        int[] output = new int[5];
+        output[0] = isMale ? 1 : 0;
+        output[1] = Random.Range(0, leftEyes.Length);
+        if (Random.Range(0f, 1f) < 0.05f)
+        {
+            output[2] = Random.Range(0, rightEyes.Length);
+        }
+        else
+        {
+            output[2] = output[1];
+        }
+        output[3] = Random.Range(0, hairColours.Length);
+        if (isMale)
+        {
+            output[4] = Random.Range(0, maleHairstyles.Length);
+        }
+        else
+        {
+            output[4] = Random.Range(0, femaleHairstyles.Length);
+        }
+        return output;
+    }
+
+    private void SetupMaterials(GameObject obj, int[] metaData, int newLayer)
+    {
+        ModelMaterialOptions options = obj.GetComponentInChildren<ModelMaterialOptions>();
+        bool isMale = metaData[0] == 1;
+        options.leftEye = leftEyes[metaData[1]];
+        options.rightEye = rightEyes[metaData[2]];
+        options.hair = hairColours[metaData[3]];
+        Mesh[] hairstyles = isMale ? maleHairstyles : femaleHairstyles;
+        Vector3[] hatOffset = isMale ? maleHatOffsets : femaleHatOffsets;
+        options.hairstyle = hairstyles[metaData[4]];
+        options.hatLocalOffset = hatOffset[metaData[4]];
+        Material[] general = newLayer == 1 ? purpleMaterials : greenMaterials;
+        options.broom = general[0];
+        options.stick = general[1];
+        options.clothes = general[2];
+        options.clothesAccent = general[3];
+        options.translucent = general[4];
+        options.UpdateMaterials();
+        
+        obj.GetComponent<MovementController>().SetProjectileEffect
+            (newLayer == 1 ? purpleProjectileEffect : greenProjectileEffect);
+        ParticleSystem.MainModule m = options.broomParticles.main;
+        m.startColor = (newLayer == 1 ? new Color(0.897f, 0f, 1f, 0.761f) : 
+            new Color(0.019f, 0.802f, 0.381f,0.761f));
     }
     #endregion
 }

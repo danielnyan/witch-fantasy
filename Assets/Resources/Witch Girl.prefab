@@ -2589,6 +2589,9 @@ MonoBehaviour:
   hairObject: {fileID: 7899754700987357822}
   hairstyle: {fileID: -6537042436428085348, guid: 1731bbc3f9f612a4e9a677b958b97b90,
     type: 3}
+  hatObject: {fileID: 368481958566115945}
+  hatLocalOffset: {x: 0, y: 0, z: 0}
+  broomParticles: {fileID: 8897402237422588131}
 --- !u!114 &5025180680491273159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,15 +5031,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32b4bd0f24930db45b929c99495e093c, type: 3}
+--- !u!1 &3900864309976281785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8331554136109469545, guid: 32b4bd0f24930db45b929c99495e093c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5025180680152120784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2863949682848591335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7062713096448970807, guid: 32b4bd0f24930db45b929c99495e093c,
     type: 3}
   m_PrefabInstance: {fileID: 5025180680152120784}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3900864309976281785 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8331554136109469545, guid: 32b4bd0f24930db45b929c99495e093c,
+--- !u!198 &8897402237422588131 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4522998336617819443, guid: 32b4bd0f24930db45b929c99495e093c,
     type: 3}
   m_PrefabInstance: {fileID: 5025180680152120784}
   m_PrefabAsset: {fileID: 0}
