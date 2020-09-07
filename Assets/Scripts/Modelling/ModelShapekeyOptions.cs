@@ -54,12 +54,12 @@ public class ModelShapekeyOptions : MonoBehaviour
     private void Reset()
     {
         body = FindDeepChild("Body").GetComponent<SkinnedMeshRenderer>();
-        upperTeeth = FindDeepChild("Upper_Teeth").GetComponent<SkinnedMeshRenderer>();
-        lowerTeeth = FindDeepChild("Lower_Teeth").GetComponent<SkinnedMeshRenderer>();
-        leftEye = FindDeepChild("Left_Eye").GetComponent<SkinnedMeshRenderer>();
-        rightEye = FindDeepChild("Right_Eye").GetComponent<SkinnedMeshRenderer>();
-        eyeballL = FindDeepChild("Eyeball_L");
-        eyeballR = FindDeepChild("Eyeball_R");
+        upperTeeth = FindDeepChild("Upper Teeth").GetComponent<SkinnedMeshRenderer>();
+        lowerTeeth = FindDeepChild("Lower Teeth").GetComponent<SkinnedMeshRenderer>();
+        leftEye = FindDeepChild("Left Eye").GetComponent<SkinnedMeshRenderer>();
+        rightEye = FindDeepChild("Right Eye").GetComponent<SkinnedMeshRenderer>();
+        eyeballL = FindDeepChild("Eyeball.L");
+        eyeballR = FindDeepChild("Eyeball.R");
         head = FindDeepChild("Head");
     }
 
