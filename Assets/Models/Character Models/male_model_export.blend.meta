@@ -609,9 +609,79 @@ ModelImporter:
   - first:
       137: 13700026
     second: Upper_Teeth
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_Male__Body_Female
+    second: {fileID: 2100000, guid: 4619f7d481f11af408b8241563ce93f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Broom_Material__Broom_Normals
+    second: {fileID: 2100000, guid: 9f4ce4178d1d4ad4db9028506e3e429e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Clothes
+    second: {fileID: 2100000, guid: 7790d0fc6fbfee342b587c1677221df5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Clothes_Accent
+    second: {fileID: 2100000, guid: 8bd9e7eb773b2514b9cb51aadb7ed468, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Clothes_Accent__Body_Female
+    second: {fileID: 2100000, guid: 8bd9e7eb773b2514b9cb51aadb7ed468, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Clothes__Body_Female
+    second: {fileID: 2100000, guid: 7790d0fc6fbfee342b587c1677221df5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_White
+    second: {fileID: 2100000, guid: 4553a3579a6ce504eb62b3c6df20324a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hair_Male
+    second: {fileID: 2100000, guid: fa06672ae3dc0c74fb7a879fc10d0a13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inner_Mouth__Body_Female
+    second: {fileID: 2100000, guid: 84826e67d370c39419aaefe17b4e7aee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Left_Eyeball
+    second: {fileID: 2100000, guid: 570f8e81c6159c045b11bdda07e45564, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Right_Eyeball
+    second: {fileID: 2100000, guid: 90707dd8658a5e84dbbcca53efb86cf8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shorts__Body_Female
+    second: {fileID: 2100000, guid: 2a2a11e37f6e28a45befce7cfb1317c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stick_Material__Broom_Normals
+    second: {fileID: 2100000, guid: 2462d92df7e15bd44b6a9a3c53923b45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Teeth
+    second: {fileID: 2100000, guid: 3624554f94d90a94aa88e0acd56fe4e3, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
