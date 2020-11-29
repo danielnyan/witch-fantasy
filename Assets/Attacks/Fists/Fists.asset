@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd6e7ecb220a1e4bace362170637351, type: 3}
+  m_Name: Fists
+  m_EditorClassIdentifier: 
+  animationData:
+  - gameObject: {fileID: 2239778610962401338, guid: 11a0e0128fe97344c8e6a2006c8e944e,
+      type: 3}
+    objectName: Fire Nova
+    parent: 
+    position: {x: 0.271, y: -0.028, z: 0.5959999}
+    rotation: {x: 0, y: 0, z: 0}
+  - gameObject: {fileID: 333414315968496033, guid: 92d3f63ee21d5664993a925fdec8e4e5,
+      type: 3}
+    objectName: Hand Flames
+    parent: Armature/Hip/Lower Torso/Upper Torso/Shoulder.L/Upper Arm.L/Lower Arm.L/Palm.L
+    position: {x: 0, y: 0.09, z: 0.01}
+    rotation: {x: 0, y: 0, z: 0}
+  - gameObject: {fileID: 333414315968496033, guid: 92d3f63ee21d5664993a925fdec8e4e5,
+      type: 3}
+    objectName: Hand Flames
+    parent: Armature/Hip/Lower Torso/Upper Torso/Shoulder.R/Upper Arm.R/Lower Arm.R/Palm.R
+    position: {x: 0, y: 0.1, z: -0.02}
+    rotation: {x: 0, y: 0, z: 0}
+  overridePair:
+  - name: Base Attack 1
+    clip: {fileID: 7400000, guid: af397f81b98a78b438896d2066d3647d, type: 2}
+  - name: Base Attack 1 Stall
+    clip: {fileID: 7400000, guid: 895449ddbe2909b4199533ec855ba218, type: 2}
+  - name: Base Attack 2
+    clip: {fileID: 7400000, guid: 973367d6a1f46ef48b546053fd0b1c6e, type: 2}
+  - name: Base Attack 2 Stall
+    clip: {fileID: 7400000, guid: 610814912b759374194e79b6ea11a0a9, type: 2}
+  - name: Base Attack 3
+    clip: {fileID: 7400000, guid: 718b42d60e16d8341ac6bb2dd11418e2, type: 2}
