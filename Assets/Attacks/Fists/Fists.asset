@@ -42,3 +42,21 @@ MonoBehaviour:
     clip: {fileID: 7400000, guid: 610814912b759374194e79b6ea11a0a9, type: 2}
   - name: Base Attack 3
     clip: {fileID: 7400000, guid: 718b42d60e16d8341ac6bb2dd11418e2, type: 2}
+  functionCalls:
+  - name: base_3
+    function:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7529881196682886993, guid: 6000b80fd39240f43a85b011c86bf552,
+            type: 3}
+          m_TargetAssemblyTypeName: Animations.Fists.FistsScripts, Assembly-CSharp
+          m_MethodName: BaseAttack3
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

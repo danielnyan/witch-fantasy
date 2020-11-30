@@ -8,16 +8,20 @@ public class AnimationAttackHandler : MonoBehaviour
     private AnimatorOverrideController overrideController;
 
     private AnimationUpdater currentUpdater;
-    private AnimationHandlerEvent eventListener;
     [SerializeField]
     private RuntimeAnimatorController defaultController;
     public AnimationUpdater test;
+    public AnimationUpdater test2;
 
     public void UpdateAnimations(AnimationUpdater updater)
     {
         // To do: reset everything first
-        eventListener.RemoveAllListeners();
+        if (currentUpdater != null)
+        {
+
+        }
         currentUpdater = updater;
+
         foreach (AnimationData d in updater.animationData)
         {
             Transform parent = transform;
@@ -33,13 +37,24 @@ public class AnimationAttackHandler : MonoBehaviour
             o.transform.localScale = Vector3.one;
             o.name = d.objectName;
         }
-        overrideController = new AnimatorOverrideController();
-        overrideController.runtimeAnimatorController = defaultController;
+        overrideController = new AnimatorOverrideController(defaultController);
         foreach (OverridePair p in updater.overridePair)
         {
             overrideController[p.name] = p.clip;
         }
         animator.runtimeAnimatorController = overrideController;
+
+    }
+
+    public void CallEvent(string name)
+    {
+        foreach (FunctionCalls f in currentUpdater.functionCalls)
+        {
+            if (f.name == name)
+            {
+                f.function.Invoke(gameObject);
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -47,7 +62,14 @@ public class AnimationAttackHandler : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
-        eventListener = new AnimationHandlerEvent();
         UpdateAnimations(test);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            UpdateAnimations(test2);
+        }
     }
 }

@@ -20,11 +20,17 @@ public struct OverridePair
     public AnimationClip clip;
 }
 
+[Serializable]
+public struct FunctionCalls
+{
+    public string name;
+    public AnimationHandlerEvent function;
+}
+
 [CreateAssetMenu(fileName ="Animation Updater", menuName ="ScriptableObject/AnimationUpdater")]
 public class AnimationUpdater : ScriptableObject
 {
-    [SerializeField]
     public AnimationData[] animationData;
-    [SerializeField]
     public OverridePair[] overridePair;
+    public FunctionCalls[] functionCalls;
 }

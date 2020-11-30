@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 299a15d9a06bb5b49bb86960ece09cdf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fireNova: {fileID: 2239778610962401338, guid: 11a0e0128fe97344c8e6a2006c8e944e,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
