@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 198d43da9dbc7a94886795009fc1c484
 ModelImporter:
-  serializedVersion: 20100
+  serializedVersion: 20101
   internalIDToNameTable:
   - first:
       1: 100000
@@ -609,6 +609,9 @@ ModelImporter:
   - first:
       137: 13700026
     second: Upper_Teeth
+  - first:
+      74: -623603649343465320
+    second: Scene
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -719,6 +722,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1

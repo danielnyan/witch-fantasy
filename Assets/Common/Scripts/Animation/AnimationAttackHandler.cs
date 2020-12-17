@@ -18,7 +18,19 @@ public class AnimationAttackHandler : MonoBehaviour
         // To do: reset everything first
         if (currentUpdater != null)
         {
-
+            foreach (AnimationData d in currentUpdater.animationData)
+            {
+                GameObject g;
+                if (d.parent != "")
+                {
+                    g = transform.Find(d.parent + "/" + d.objectName).gameObject;
+                }
+                else
+                {
+                    g = transform.Find(d.objectName).gameObject;
+                }
+                Destroy(g);
+            }
         }
         currentUpdater = updater;
 
