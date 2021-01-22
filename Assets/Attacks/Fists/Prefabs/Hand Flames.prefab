@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &333414315968496030
 Transform:
   m_ObjectHideFlags: 0
@@ -40,23 +40,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
-      propertyPath: EmissionModule.rateOverDistance.scalar
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
-        type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key0.r
-      value: 0.75686276
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
-        type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key0.g
-      value: 0.3254902
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
@@ -65,8 +55,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key1.r
-      value: 0.02352941
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.3254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.75686276
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
@@ -75,8 +75,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088058307208, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key1.b
-      value: 1
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 0.02352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
@@ -95,6 +115,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -106,16 +131,6 @@ PrefabInstance:
     - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
@@ -132,21 +147,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303999088602972107, guid: 03cfda8c16bd1c64887a92487354bc6a,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6303999088602972150, guid: 03cfda8c16bd1c64887a92487354bc6a,
         type: 3}
