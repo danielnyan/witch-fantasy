@@ -149,11 +149,6 @@ public class CameraController : MonoBehaviour
         if (controller != null)
         {
             Vector3 target = new Vector3(0, 0, -cameraDistance);
-            if (controller.FiringModeOn)
-            {
-                target += transform.InverseTransformPoint
-                    (controller.GetFiringPivotPosition());
-            }
             Camera.main.transform.localPosition = Vector3.Lerp(
                 Camera.main.transform.localPosition, target, smoothingFactor);
         }
@@ -190,15 +185,6 @@ public class CameraController : MonoBehaviour
         if (controller != null)
         {
             Vector3 target = new Vector3(0, 0, -cameraDistance);
-            if (controller.FiringModeOn)
-            {
-                target += transform.InverseTransformPoint
-                    (controller.GetFiringPivotPosition());
-                if (fullRotationEnabled)
-                {
-                    ClampRotationOffset();
-                }
-            }
             Camera.main.transform.localPosition = Vector3.Lerp(
                 Camera.main.transform.localPosition, target, smoothingFactor);
         }
