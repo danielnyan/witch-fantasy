@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GroundedUpdate : MovementLogic
 {
+    GameObject tempSpirit; 
+
     public override void Cleanup(MovementController m)
     {
         m.groundCollider.enabled = false;
@@ -40,6 +42,7 @@ public class GroundedUpdate : MovementLogic
         {
             return;
         }
+        HandleFiringInput(m);
 
         if (!m.groundedHandler.IsStanding())
         {
@@ -64,7 +67,6 @@ public class GroundedUpdate : MovementLogic
             m.animationController.HandleGroundedAnimation(m.rotationData,
             Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
-
     }
 
     private void SetGroundedDirection(Transform lookTowards, MovementController m)
@@ -144,5 +146,76 @@ public class GroundedUpdate : MovementLogic
             }
         }
         return true;
+    }
+
+    private void HandleFiringInput(MovementController m)
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (m.beaconInstance != null)
+            {
+                Destroy(m.beaconInstance);
+            }
+            m.beaconInstance = Instantiate(m.beacon);
+            m.beaconInstance.transform.position = m.beaconPivot.position;
+            m.beaconInstance.SetActive(true);
+            // This is a hack, might need to discuss how to do this properly
+            Vector3 firingDirection = Camera.main.transform.forward;
+            m.beaconInstance.GetComponent<Rigidbody>().velocity 
+                = firingDirection * 50f;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (m.beaconInstance != null)
+            {
+                StartCoroutine(GoToBeacon(m));
+            }
+        }
+    }
+
+    private IEnumerator GoToBeacon(MovementController m)
+    {
+        m.twistPivot.gameObject.SetActive(false);
+        if (tempSpirit != null)
+        {
+            Destroy(tempSpirit);
+        }
+        tempSpirit = Instantiate(m.spirit);
+        tempSpirit.transform.parent = m.transform;
+        tempSpirit.transform.localPosition = Vector3.zero;
+        tempSpirit.SetActive(true);
+        while (true)
+        {
+            if (m.beaconInstance == null)
+            {
+                break;
+            }
+            transform.position = Vector3.Lerp(transform.position,
+                m.beaconInstance.transform.position, 0.2f);
+            float distance = (transform.position - m.beaconInstance.transform.position).magnitude;
+            if (distance < 5f)
+            {
+                break;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        m.twistPivot.gameObject.SetActive(true);
+        StartCoroutine(DisableSpirit(m));
+        Destroy(m.beaconInstance);
+        m.GroundedToFlying();
+        yield break;
+    }
+
+    private IEnumerator DisableSpirit(MovementController m)
+    {
+        // To do: delegate this code to the spirit itself. 
+        // and make a better trail
+        tempSpirit.transform.parent = null;
+        yield return new WaitForSeconds(1f);
+        if (tempSpirit != null)
+        {
+            Destroy(tempSpirit);
+        }
+        yield break;
     }
 }

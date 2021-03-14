@@ -11,13 +11,14 @@ public class FlyingUpdate : MovementLogic
     public override void MoveFixedUpdate(MovementController m)
     {
         HandleFixedFlyingInput(m);
-        AddUpthrust(m); ;
+        AddUpthrust(m);
     }
 
     public override void Initialize(MovementController m)
     {
         m.rb.drag = 0.7f;
         m.rb.freezeRotation = false;
+        m.rb.useGravity = true;
         
         m.animationController.FlyingModeOn(true);
         // broomParticles.SetActive(true);

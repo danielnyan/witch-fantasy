@@ -24,23 +24,23 @@ public class MovementController : MonoBehaviour
     public bool IsGrounded;
     public bool jumpKeyHeld;
     public bool canFly = true;
+    public bool hasBroom = true;
     public float flyingDebugCooldown = 0f;
+    public GameObject beaconInstance;
     #endregion
 
     #region Prefab Variables
     public Rigidbody rb;
-    [SerializeField]
     public Transform twistPivot;
-    [SerializeField]
     public Transform lookTowards;
-    [SerializeField]
     public Collider groundCollider;
     public GroundedHandler groundedHandler;
     public AnimationController animationController;
-    [SerializeField]
     public GameObject broomParticles;
-    [SerializeField]
     public Collider[] flyingColliders;
+    public GameObject beacon;
+    public Transform beaconPivot;
+    public GameObject spirit;
 
     public MovementLogic flyingLogic;
     public MovementLogic groundedLogic;
@@ -98,13 +98,19 @@ public class MovementController : MonoBehaviour
         {
             invertFlyingYAxis *= -1;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (!groundedHandler.IsStanding() && hasBroom && 
+            Input.GetKeyDown(KeyCode.Alpha1))
         {
             ChangeLogic(glidingLogic);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (!groundedHandler.IsStanding() && hasBroom && 
+            Input.GetKeyDown(KeyCode.Alpha2))
         {
             ChangeLogic(flyingLogic);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeLogic(groundedLogic);
         }
         currentLogic.MoveUpdate(this);
     }
